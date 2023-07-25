@@ -1,4 +1,4 @@
-# APTS, Statistical Machine Learning module
+# APTS Statistical Machine Learning module
 
 The [Academy of PhD Training in Statistics (APTS)](https://warwick.ac.uk/fac/sci/statistics/apts/) is a collaboration between major UK statistics research groups to organise courses for first-year PhD students in statistics and applied probability nationally.
 This repository provides a Github Codespace for running the two computer labs in the [week 4 module](https://warwick.ac.uk/fac/sci/statistics/apts/programme/) on Statistical Machine Learning, delivered by [Louis Aslett](https://www.louisaslett.com/).
