@@ -1,0 +1,15 @@
+{
+  "name": "${localWorkspaceFolderBasename}_v1.0.0",
+  "build": {
+      "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [8787],
+  "portsAttributes": {
+    "8787": {
+      "label": "RStudio",
+      "requireLocalPort": true,
+      "onAutoForward": "ignore"
+    }
+  },
+  "postAttachCommand": "sudo rstudio-server start"
+}
