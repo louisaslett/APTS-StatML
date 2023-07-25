@@ -24,7 +24,7 @@ RUN apt-get update -qq \
     && echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt \
     && echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt \
     && apt-get update -qq \
-    && apt-get install --yes --no-install-recommends python3-{dbus,gi,apt} \
+    && apt-get install --yes --no-install-recommends python3-dbus python3-gi python3-apt \
     && Rscript -e 'install.packages("bspm")' \
     && RHOME=$(R RHOME) \
     && echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site \
