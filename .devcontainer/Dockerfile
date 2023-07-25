@@ -24,15 +24,8 @@ RUN apt-get update -qq \
     && echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt \
     && echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt \
     && apt-get update -qq \
-    && apt-get install --yes --no-install-recommends r-cran-bspm r-cran-docopt r-cran-littler r-cran-remotes python3-dbus python3-gi python3-apt \
-    && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/installBioc.r /usr/local/bin/installBioc.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/installDeps.r /usr/local/bin/installDeps.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/installRub.r /usr/local/bin/installRub.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-    && ln -s /usr/lib/R/site-library/littler/examples/update.r /usr/local/bin/update.r \
+    && apt-get install --yes --no-install-recommends python3-dbus python3-gi python3-apt \
+    && Rscript -e 'install.packages("bspm")' \
     && echo "suppressMessages(bspm::enable())" >> /etc/R/Rprofile.site \
     && echo "options(bspm.version.check=FALSE)" >> /etc/R/Rprofile.site \
     && echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf.d/90local-no-recommends \
