@@ -6,8 +6,9 @@
   "forwardPorts": [8787],
   "portsAttributes": {
     "8787": {
-      "label": "RStudio"
+      "label": "RStudio",
+      "requireLocalPort": true
     }
   },
-  "postStartCommand": ["rstudio-server start"]
+  "postStartCommand": "rstudio-server start"
 }
