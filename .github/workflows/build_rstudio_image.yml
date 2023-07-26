@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Login to GitHub Container Registry
-      run: docker login -u ${{ github.actor }} -p ${{ GITHUB_TOKEN }} ghcr.io
+      run: docker login -u ${{ github.actor }} -p ${{ secrets.LJMA_PAT }} ghcr.io
 
     - name: Build and tag Docker image
       run: |
