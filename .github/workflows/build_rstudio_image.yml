@@ -16,8 +16,8 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}/StatML:latest ./docker
+        docker build -t ghcr.io/${{ github.repository }}:latest ./docker
 
     - name: Push Docker image to GHCR
       run: |
-        docker push ghcr.io/${{ github.repository }}/StatML:latest
+        docker push ghcr.io/${{ github.repository }}:latest
