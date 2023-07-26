@@ -9,5 +9,5 @@
       "label": "RStudio"
     }
   },
-  "postStartCommand": "rstudio-server start"
+  "postStartCommand": ["rstudio-server start"]
 }

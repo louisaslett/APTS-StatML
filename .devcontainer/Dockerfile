@@ -51,8 +51,8 @@ RUN apt-get install --yes --no-install-recommends gdebi-core git-all \
 RUN apt-get install --yes --no-install-recommends sudo \
     && useradd -m -s /bin/bash rstudio \
     && echo "rstudio ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-# Disable login requirements for RStudio
-    && echo "auth-none=1" >> /etc/rstudio/rserver.conf \
+# Disable login requirements for RStudio and ensure only listens on localhost
+    && echo "auth-none=1\nwww-address=127.0.0.1" >> /etc/rstudio/rserver.conf \
     && echo "USER=rstudio" >> /etc/environment \
 # Enable rstudio to write to packages folder
     && chown root:rstudio "/usr/lib/R/site-library" \
