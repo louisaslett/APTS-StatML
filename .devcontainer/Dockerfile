@@ -1,7 +1,15 @@
 FROM ubuntu:jammy
 
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
+## Set locale
+RUN apt-get update -qq \
+    && apt-get install locales \
+    && echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen en_GB.utf8 \
+    && /usr/sbin/update-locale LANG=en_GB.UTF-8
+ENV LC_ALL en_GB.UTF-8
+ENV LANG en_GB.UTF-8
+
+## Set other env vars
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ UTC
 
@@ -9,12 +17,10 @@ ENV TZ UTC
 ## Next RUN statement from r2u source, https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh
 ## Only change is to commands written to Rprofile.site (change order and add bspm.sudo = TRUE)
 ## First: update apt and get keys
-RUN apt-get update -qq \
-    && apt-get install --yes --no-install-recommends wget ca-certificates gnupg \
+RUN apt-get install --yes --no-install-recommends wget ca-certificates gnupg \
     && wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc \
 ## Second: add the repo -- here we use the well-connected mirror
     && echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" > /etc/apt/sources.list.d/cranapt.list \
-    && apt-get update -qq \
 ## Third: ensure current R is used
     && wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc \
     && echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran_r.list \
@@ -51,3 +57,8 @@ RUN apt-get install --yes --no-install-recommends sudo \
 # Enable rstudio to write to packages folder
     && chown root:rstudio "/usr/lib/R/site-library" \
     && chmod g+ws "/usr/lib/R/site-library"
+
+## APT config & tidyup
+RUN echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf.d/90local-no-recommends \
+    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && rm -rf /var/lib/apt/lists/*
