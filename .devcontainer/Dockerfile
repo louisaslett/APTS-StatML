@@ -1,9 +1,13 @@
 FROM ubuntu:jammy
 
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
+ENV TZ UTC
 
 ## Setup R and r2u for fast package install
 ## Next RUN statement from r2u source, https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh
+## Only change is to commands written to Rprofile.site (change order and add bspm.sudo = TRUE)
 ## First: update apt and get keys
 RUN apt-get update -qq \
     && apt-get install --yes --no-install-recommends wget ca-certificates gnupg \
@@ -28,8 +32,8 @@ RUN apt-get update -qq \
 ## Then install bspm (as root) and enable it, and enable a speed optimization
     && Rscript -e 'install.packages("bspm")' \
     && RHOME=$(R RHOME) \
-    && echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site \
-    && echo "options(bspm.version.check=FALSE)" >> ${RHOME}/etc/Rprofile.site
+    && echo "options(bspm.version.check = FALSE, bspm.sudo = TRUE)" >> ${RHOME}/etc/Rprofile.site \
+    && echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
 
 ## Install RStudio
 RUN apt-get install --yes --no-install-recommends gdebi-core \
