@@ -1,8 +1,6 @@
 {
-  "name": "${localWorkspaceFolderBasename}_v1.0.0",
-  "build": {
-      "dockerfile": "Dockerfile"
-  },
+  "name": "${localWorkspaceFolderBasename}_v2.0.0",
+  "image": "ghcr.io/louisaslett/apts-statml:latest",
   "forwardPorts": [8787],
   "portsAttributes": {
     "8787": {
