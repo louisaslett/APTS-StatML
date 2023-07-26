@@ -9,5 +9,5 @@
       "label": "RStudio"
     }
   },
-  "postAttachCommand": "sudo rstudio-server start"
+  "postStartCommand": "rstudio-server start"
 }
