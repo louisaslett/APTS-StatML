@@ -1,0 +1,23 @@
+name: Build and Push RStudio Docker Image
+
+on:
+  workflow_dispatch:  # Manually trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      run: docker login -u ${{ github.actor }} -p ${{ GITHUB_TOKEN }} ghcr.io
+
+    - name: Build and tag Docker image
+      run: |
+        docker build -t ghcr.io/${{ github.repository }}/StatML:latest ./docker
+
+    - name: Push Docker image to GHCR
+      run: |
+        docker push ghcr.io/${{ github.repository }}/StatML:latest
