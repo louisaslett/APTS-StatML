@@ -11,5 +11,5 @@
       "onAutoForward": "ignore"
     }
   },
-  "postStartCommand": "rstudio-server start"
+  "postAttachCommand": "sudo rstudio-server start"
 }
