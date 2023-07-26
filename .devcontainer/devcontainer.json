@@ -6,8 +6,7 @@
   "forwardPorts": [8787],
   "portsAttributes": {
     "8787": {
-      "label": "RStudio",
-      "onAutoForward": "openBrowser"
+      "label": "RStudio"
     }
   },
   "postAttachCommand": "sudo rstudio-server start"
