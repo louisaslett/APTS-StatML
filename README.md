@@ -8,6 +8,12 @@ This repository provides a Github Codespace for running the two computer labs in
 - [Preliminary Material](https://www.louisaslett.com/StatML/prelim/)
 - [Course Notes](https://www.louisaslett.com/StatML/notes/)
 
+## Labs
+
+There are two labs during the course which make use of [R](https://www.r-project.org/) and various packages, mainly run via either [Tidymodels](https://www.tidymodels.org/) or [MLR3](https://mlr3.mlr-org.com/).
+To simplify the running of the labs and ensure a consistent software environment, it is recommended to use the devcontainer provided in this repository via [Github Codespaces](https://github.com/features/codespaces) ... note this is free to use if you associate your `.ac.uk` academic email address with your Github account and [register as a student](https://education.github.com/pack).
+However, you can also run R locally if you prefer, or attempt to use the University lab computers (no guarantees they'll be up-to-date!)
+
 ## Module Description
 
 **Aims:**
