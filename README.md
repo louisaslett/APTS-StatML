@@ -1,17 +1,24 @@
 # APTS Statistical Machine Learning module
 
 The [Academy of PhD Training in Statistics (APTS)](https://warwick.ac.uk/fac/sci/statistics/apts/) is a collaboration between major UK statistics research groups to organise courses for first-year PhD students in statistics and applied probability nationally.
-This repository provides a Github Codespace for running the two computer labs in the [week 4 module](https://warwick.ac.uk/fac/sci/statistics/apts/programme/) on Statistical Machine Learning, delivered by [Louis Aslett](https://www.louisaslett.com/).
+This repository provides a [Github Codespaces](https://github.com/features/codespaces/) for running the two computer labs in the [week 4 module](https://warwick.ac.uk/fac/sci/statistics/apts/programme/) on Statistical Machine Learning, delivered by [Louis Aslett](https://www.louisaslett.com/).
 
 ## Links
 
+- [Setup Instructions](https://www.louisaslett.com/StatML/setup/)
+  - This explains how to create a Github account and to register your student account in order to get free "Pro" benefits, such as extra [Github Codespaces](https://github.com/features/codespaces/) allowance.
+    Please complete this before the first lab.
 - [Preliminary Material](https://www.louisaslett.com/StatML/prelim/)
+  - Please study this material prior to the start of the course.
+    It will help with getting a sense of the setting of the course.
 - [Course Notes](https://www.louisaslett.com/StatML/notes/)
+  - These are the main notes for the course which we will work through in the lectures during the week, scheduled to run from 14th-18th August 2023 at the University of Glasgow.  
 
 ## Labs
 
 There are two labs during the course which make use of [R](https://www.r-project.org/) and various packages, mainly run via either [Tidymodels](https://www.tidymodels.org/) or [MLR3](https://mlr3.mlr-org.com/).
 To simplify the running of the labs and ensure a consistent software environment, it is recommended to use the devcontainer provided in this repository via [Github Codespaces](https://github.com/features/codespaces) ... note this is free to use if you associate your `.ac.uk` academic email address with your Github account and [register as a student](https://education.github.com/pack).
+Please follow the ["Setup Instructions"](https://www.louisaslett.com/StatML/setup/) linked above before the labs so that you're ready to use Github.
 However, you can also run R locally if you prefer, or attempt to use the University lab computers (no guarantees they'll be up-to-date!)
 
 ## Module Description
