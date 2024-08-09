@@ -14,7 +14,7 @@ This repository provides a [Github Codespaces](https://github.com/features/codes
   - Please study this material prior to the start of the course.
     It will help with getting a sense of the setting of the course.
 - [Course Notes](https://www.louisaslett.com/StatML/notes/)
-  - These are the main notes for the course which we will work through in the lectures during the week, scheduled to run from 14th-18th August 2023 at the University of Glasgow.
+  - These are the main notes for the course which we will work through in the lectures during the week, scheduled to run from 9th-13th September 2024 at the University of Oxford.
 - [Labs](https://www.louisaslett.com/StatML/notes/ml-pipelines.html)
   - Each lab is about 1.5 hours and there will be help on hand if you get stuck.
     At the link above you will find the question sheet, and a full solution web page.
