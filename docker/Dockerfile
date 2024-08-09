@@ -43,9 +43,9 @@ RUN apt-get install --yes --no-install-recommends wget ca-certificates gnupg \
 
 ## Install git and RStudio Server
 RUN apt-get install --yes --no-install-recommends gdebi-core git-all \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.1-524-amd64.deb \
-    && apt-get install --yes --no-install-recommends ./rstudio-server-2023.06.1-524-amd64.deb \
-    && rm rstudio-server-2023.06.1-524-amd64.deb
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb \
+    && apt-get install --yes --no-install-recommends ./rstudio-server-2024.04.2-764-amd64.deb \
+    && rm rstudio-server-2024.04.2-764-amd64.deb
 
 ## Next, setup user and sudo privileges
 RUN apt-get install --yes --no-install-recommends sudo \
@@ -60,5 +60,5 @@ RUN apt-get install --yes --no-install-recommends sudo \
 
 ## APT config & tidyup
 RUN echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf.d/90local-no-recommends \
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    && rm -rf /tmp/* \
     && rm -rf /var/lib/apt/lists/*
