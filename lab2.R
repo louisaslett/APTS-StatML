@@ -2,7 +2,7 @@
 # install.packages("modeldata")
 data("credit_data", package = "modeldata")
 
-# Try some plotting function to explore the data here
+# Try some plotting functions to explore the data here
 
 
 # Uncomment and run the following command first if you do not have the mlr3 package
@@ -98,8 +98,8 @@ cv$instantiate(credit_task)
 cv$train_set(1)
 cv$test_set(1)
 
-lrn_baseline <- lrn("classif.featureless", predict_type = "prob")
-lrn_cart <- lrn("classif.rpart", predict_type = "prob")
+lrn_baseline <- lrn("classif.featureless", predict_type = "prob", id = "baseline")
+lrn_cart <- lrn("classif.rpart", predict_type = "prob", id = "tree")
 
 # Have a look at what options and hyperparameters the model possesses
 lrn_baseline$param_set
@@ -171,20 +171,20 @@ plot(res$resample_result(2)$learners[[3]]$model, compress = TRUE, margin = 0.1)
 text(res$resample_result(2)$learners[[3]]$model, use.n = TRUE, cex = 0.8)
 
 # Enable nested cross validation
-lrn_cart_cv <- lrn("classif.rpart", predict_type = "prob", xval = 10)
+lrn_cart_cv <- lrn("classif.rpart", predict_type = "prob", xval = 10, id = "tree.cv")
 
 res_cart_cv <- resample(credit_task, lrn_cart_cv, cv, store_models = TRUE)
 rpart::plotcp(res_cart_cv$learners[[3]]$model)
 
 # Try refitting with a chosen complexity parameter for pruning
-lrn_cart_cp <- lrn("classif.rpart", predict_type = "prob", cp = 0.016)
+lrn_cart_cp <- lrn("classif.rpart", predict_type = "prob", cp = 0.016, id = "tree.pruned")
 
 # Then run this in the benchmark with other options
 res <- benchmark(benchmark_grid(
-  task       = list(credit_task),
-  learners    = list(lrn_baseline,
-                     lrn_cart,
-                     lrn_cart_cp),
+  task        = list(credit_task),
+  learners    = list(baseline   = lrn_baseline,
+                     cart       = lrn_cart,
+                     cart_prune = lrn_cart_cp),
   resamplings = list(rsmp("cv", folds = 3))
 ), store_models = TRUE)
 
@@ -209,7 +209,7 @@ mlr_pipeops
 # install.packages("xgboost")
 
 # Create a pipeline which encodes and then fits an XGBoost model
-lrn_xgboost <- lrn("classif.xgboost", predict_type = "prob")
+lrn_xgboost <- lrn("classif.xgboost", predict_type = "prob", id = "gradient.boosting")
 pl_xgb <- po("encode") %>>%
   po(lrn_xgboost)
 
@@ -235,7 +235,7 @@ pl_missing <- po("fixfactors") %>>%
   po("imputemean")
 
 # Now try with a model that needs no missingness
-lrn_log_reg <- lrn("classif.log_reg", predict_type = "prob")
+lrn_log_reg <- lrn("classif.log_reg", predict_type = "prob", id = "logistic.regression")
 pl_log_reg <- pl_missing %>>%
   po(lrn_log_reg)
 
@@ -273,15 +273,15 @@ cv5 <- rsmp("cv", folds = 5)
 cv5$instantiate(credit_task)
 
 # Define a collection of base learners
-lrn_baseline <- lrn("classif.featureless", predict_type = "prob")
-lrn_cart     <- lrn("classif.rpart", predict_type = "prob")
-lrn_cart_cp  <- lrn("classif.rpart", predict_type = "prob", cp = 0.016, id = "cartcp")
-lrn_ranger   <- lrn("classif.ranger", predict_type = "prob")
-lrn_xgboost  <- lrn("classif.xgboost", predict_type = "prob")
-lrn_log_reg  <- lrn("classif.log_reg", predict_type = "prob")
+lrn_baseline <- lrn("classif.featureless", predict_type = "prob", id = "baseline")
+lrn_cart     <- lrn("classif.rpart", predict_type = "prob", id = "tree")
+lrn_cart_cp  <- lrn("classif.rpart", predict_type = "prob", cp = 0.016, id = "tree.pruned")
+lrn_ranger   <- lrn("classif.ranger", predict_type = "prob", id = "random.forest")
+lrn_xgboost  <- lrn("classif.xgboost", predict_type = "prob", id = "gradient.descent")
+lrn_log_reg  <- lrn("classif.log_reg", predict_type = "prob", id = "logistic.regression")
 
 # Define a super learner
-lrnsp_log_reg <- lrn("classif.log_reg", predict_type = "prob", id = "super")
+lrnsp_log_reg <- lrn("classif.log_reg", predict_type = "prob", id = "super.learner")
 
 # Missingness imputation pipeline
 pl_missing <- po("fixfactors") %>>%

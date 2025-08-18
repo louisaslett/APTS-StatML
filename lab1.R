@@ -2,7 +2,7 @@
 # install.packages("modeldata")
 data("credit_data", package = "modeldata")
 
-# Try some plotting function to explore the data here
+# Try some plotting functions to explore the data here
 
 
 # Uncomment and run the following command first if you do not have the fst package
@@ -56,13 +56,9 @@ test_data <- testing(credit_data_split)
 # First, define a logistic regression model
 lr_mod <- logistic_reg()
 
-
-# Now we need to load the kknn package due to a bug waiting a fix
-library("kknn") # Needed due to bug! https://github.com/tidymodels/parsnip/issues/264
-
 # Second, define a knn model. Since KNN has a hyperparameter we can specify that
 # here, and because it supports both classification and regression we can
-# set which mode we want
+# set which mode we want. Both these were unnecessary for logistic regression.
 knn_mod <- nearest_neighbor(neighbors = 3) |>
   set_mode("classification")
 
@@ -76,21 +72,21 @@ knn_fit
 # APPARENT ERRORS!
 
 lr_apparent <-
-  # First column will be predicted label
-  predict(lr_fit, train_data) |>
+  # First column will be true label
+  train_data |> select(Status) |>
   # Next two columns will be probabilities for the two labels
   bind_cols(predict(lr_fit, train_data, type = "prob")) |>
-  # Last column will be true label
-  bind_cols(train_data |> select(Status))
+  # Last column will be predicted label
+  bind_cols(predict(lr_fit, train_data))
 head(lr_apparent)
 
 knn_apparent <-
-  # First column will be predicted label
-  predict(knn_fit, train_data) |>
+  # First column will be true label
+  train_data |> select(Status) |>
   # Next two columns will be probabilities for the two labels
   bind_cols(predict(knn_fit, train_data, type = "prob")) |>
-  # Last column will be true label
-  bind_cols(train_data |> select(Status))
+  # Last column will be predicted label
+  bind_cols(predict(knn_fit, train_data))
 head(knn_apparent)
 
 mn_log_loss(lr_apparent, truth = Status, .pred_bad)
@@ -177,7 +173,7 @@ lr_grid <- grid_regular(penalty(???),
 lr_tune_cv_fits |>
   collect_metrics() |>
   ggplot(aes(penalty, mean)) +
-  geom_line(size = 1.5, alpha = 0.6) +
+  geom_line(linewidth = 1.5, alpha = 0.6) +
   geom_point(size = 2) +
   facet_wrap(~ .metric, scales = "free", nrow = 2) +
   scale_x_log10(labels = scales::label_number())
@@ -186,13 +182,13 @@ lr_tune_cv_fits |>
 
 
 # Examine best model
-lr_tune_cv_fits |> show_best("accuracy")
-lr_tune_cv_fits |> show_best("mn_log_loss")
+lr_tune_cv_fits |> show_best(metric = "accuracy")
+lr_tune_cv_fits |> show_best(metric = "mn_log_loss")
 
 # Pull out best model
 # Really, want to make sure you use a loss *relevant to your real problem* for
 # final selection of model!
-lr_final_mod <- lr_tune_cv_fits |> select_best("mn_log_loss")
+lr_final_mod <- lr_tune_cv_fits |> select_best(metric = "mn_log_loss")
 
 # First, finalise the workflow to only the best model
 lr_final_wf <- lr_tune_wf |>
