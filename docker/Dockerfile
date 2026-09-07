@@ -43,10 +43,10 @@ RUN apt-get install --yes --no-install-recommends wget ca-certificates gnupg \
 
 ## Install git and RStudio Server
 RUN apt-get install --yes --no-install-recommends gdebi-core git-all \
-    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.05.1-513-amd64.deb \
+    && wget -q https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2026.08.2-200-amd64.deb \
     # Do not use gdebi on next step as unattended seems to throw an error, using apt-get instead
-    && apt-get install --yes --no-install-recommends ./rstudio-server-2025.05.1-513-amd64.deb \
-    && rm rstudio-server-2025.05.1-513-amd64.deb
+    && apt-get install --yes --no-install-recommends ./rstudio-server-2026.08.2-200-amd64.deb \
+    && rm rstudio-server-2026.08.2-200-amd64.deb
 
 ## Next, setup user and sudo privileges
 RUN apt-get install --yes --no-install-recommends sudo \
